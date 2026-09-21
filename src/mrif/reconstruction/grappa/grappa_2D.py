@@ -2,10 +2,10 @@
 # Date: 2/15/2024
 # Description: This file is developed at CMRR
 import numpy as np
+import scipy as sp
 import torch as pt
 import torch.nn as nn
 
-import scipy as sp
 from .utils import pad_if_required
 
 
@@ -204,7 +204,6 @@ def grappa_2D_weight_application(undersampled_kspace, reconstruction_weights, ke
     reconstructed_lines = []
     for i in range(reconstruction_weights.shape[0]):
         for j in range(reconstruction_weights.shape[1]):
-            reconstruction_weights[i, j].shape
             reconstructed_lines.append(
                 grappa_2D_weight_application_line(undersampled_kspace, reconstruction_weights[i, j], kernel_size,
                                                   reduction_factors, nc))

@@ -9,7 +9,6 @@ from .metadata import (
     get_metadata_vector,
 )
 
-
 __all__ = [
     "compute_slice_normal",
     "compute_slice_position",

@@ -18,6 +18,12 @@ import SimpleITK as sitk
 from nibabel.nifti1 import Nifti1Image
 from numpy.typing import NDArray
 
+from mrif.dicom.enhanced_dicom import (
+    extract_enhanced_acquisition_metadata,
+    get_enhanced_frame_info,
+    is_enhanced_dicom,
+    voxel_sizes_detailed,
+)
 from mrif.dicom.geometry import (
     extract_slice_geometry,
     get_slice_position,
@@ -26,12 +32,6 @@ from mrif.dicom.metadata import (
     extract_acquisition_metadata,
 )
 
-from mrif.dicom.enhanced_dicom import (
-    extract_enhanced_acquisition_metadata,
-    get_enhanced_frame_info,
-    is_enhanced_dicom,
-    voxel_sizes_detailed,
-)
 
 def save_scalar_map_like(ref_img: nib.Nifti1Image,
                          data_in: np.ndarray,
@@ -240,7 +240,9 @@ def load_dicom_scan_from_dir(directory, reshape=True, verbose=False, with_spacin
     try:
         image_data = np.stack(image_data_list, axis=slice_axis)
     except Exception as e:
-        raise RuntimeError(f"Error creating array from DICOM files: {e}")
+        raise RuntimeError(
+            f"Error creating array from DICOM files: {e}"
+        ) from e
 
     if reshape:
         if is_multi_echo:

@@ -1,10 +1,10 @@
 # File created by: Eisa Hedayati
 # Date: 2/19/2026
 # Description: This file is developed at CMRR
-from pydicom.tag import Tag
-import pydicom
-import inspect
 import os
+
+import pydicom
+from pydicom.tag import Tag
 
 __all__ = [
     "voxel_sizes_detailed",

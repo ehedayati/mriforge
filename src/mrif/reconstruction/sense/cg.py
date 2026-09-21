@@ -2,13 +2,13 @@
 # Date: 5/21/2024
 # Description: This file is developed at CMRR
 
-import torch as pt
-import numpy as np
 import sys
+
+import torch as pt
 from tqdm import tqdm
 
 
-def CG_sense_2D(undersampled_image_space, coil_sensitivity, dims=[-3, -2]):
+def CG_sense_2D(undersampled_image_space, coil_sensitivity, dims=(-3, -2)):
     fft_pt = lambda X, ax: pt.fft.fftshift(pt.fft.fftn(pt.fft.ifftshift(X, dim=ax), dim=ax, norm='ortho'), dim=ax)
     ifft_pt = lambda X, ax: pt.fft.fftshift(pt.fft.ifft2(pt.fft.ifftshift(X, dim=ax), dim=ax, norm='ortho'), dim=ax)
     """
@@ -36,7 +36,7 @@ def CG_sense_2D(undersampled_image_space, coil_sensitivity, dims=[-3, -2]):
     final_recon = pt.zeros_like(estimated_im)
     r = pt.clone(estimated_im)
 
-    for i in tqdm(range(40)):
+    for _ in tqdm(range(40)):
         q = EHE(estimated_im, coil_sensitivity, mask)
         rsold = r * pt.conj(r)
         alpha = pt.sum(rsold) / pt.sum(q * pt.conj(estimated_im) + epsilon)

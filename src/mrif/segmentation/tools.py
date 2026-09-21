@@ -3,7 +3,9 @@
 # Description: This file is developed at CMRR
 
 import numpy as np
+
 import mrif
+
 
 def project_3d_matrix(matrix, value, axis):
     """

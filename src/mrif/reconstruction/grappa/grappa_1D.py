@@ -7,6 +7,7 @@ import torch.nn as nn
 
 from .utils import pad_if_required
 
+
 def grappa_1d_recon(calibration_kspace, undersampled_kspace, reduction_factor, kx, ky, is3D=False):
     """
         Reconstruct k-space data using 1D GRAPPA algorithm for the entire image. undersampled_kspace has to
@@ -57,7 +58,7 @@ def grappa_1d_recon_slice(calibration_kspace, undersampled_kspace, reduction_fac
 
     # Number of rows and columns in the calibration k-space, and the number of coils
     n_rows, n_cols = calibration_kspace.shape[:2]
-    acs_lines = calibration_kspace.shape[1]  # Auto-calibration signal lines
+    # acs_lines = calibration_kspace.shape[1]  # Auto-calibration signal lines
     nc = undersampled_kspace.shape[2]  # Number of coils
 
     # Calculating Reconstruction Weights

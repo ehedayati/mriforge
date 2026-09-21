@@ -2,16 +2,17 @@
 # Date: 12/29/2023
 # Description: This file is developed at CMR
 
-import h5py
-import numpy as np
-import nibabel as nib
-import zipfile
 import os
+import zipfile
+
+import h5py
+import nibabel as nib
+import numpy as np
 import pydicom
 import torch as pt
+
 # from scipy import ndimage
 
-from .numerical import resize_matrix
 
 def h5_to_nifti(input_file, output_file):
     """
@@ -126,7 +127,9 @@ def dicom_to_h5(dicom_directory, h5py_path, contrast='3D_gre_sag',num_contrasts=
                     ds = pydicom.dcmread(filepath)
                     contrast_images.append(ds.pixel_array)
                 except Exception as e:
-                    raise ValueError("Error reading DICOM file '{}': {}".format(filepath, str(e)))
+                    raise ValueError(
+                        "Error reading DICOM file '{}': {}".format(filepath, str(e))
+                    ) from e
 
             # Convert the list of arrays to a single 3D numpy array
             contrast_array = np.stack(contrast_images, axis=2)
@@ -167,7 +170,7 @@ def dicom_to_h5(dicom_directory, h5py_path, contrast='3D_gre_sag',num_contrasts=
         print(f"Error: {str(e)}")
 
 
-def kspace_to_image_space(kspace, fourier_dims=[0, 1, 2], coil_column_loc=-1, return_coil_images=False):
+def kspace_to_image_space(kspace, fourier_dims=(0, 1, 2), coil_column_loc=-1, return_coil_images=False):
     """
     Inverse fourier transform to extract image space from the given MRI K-space.
 
@@ -179,7 +182,7 @@ def kspace_to_image_space(kspace, fourier_dims=[0, 1, 2], coil_column_loc=-1, re
     Returns:
     - numpy.ndarray: The reconstructed volume using the square root of the sum of squared magnitudes of the coil images.
     """
-    nc = kspace.shape[coil_column_loc]
+    # nc = kspace.shape[coil_column_loc]
 
     is_tensor = False
     if isinstance(kspace, pt.Tensor):
@@ -336,10 +339,10 @@ def zero_pad(tensor, final_shape):
             raise ValueError("The small tensor is larger than the large tensor in dimension {}.".format(i))
 
     # Calculate start indices for small_tensor to be centered
-    start_indices = [(large_dim - small_dim) // 2 for large_dim, small_dim in zip(large_tensor.shape, tensor.shape)]
+    start_indices = [(large_dim - small_dim) // 2 for large_dim, small_dim in zip(large_tensor.shape, tensor.shape, strict=True)]
 
     # Create a slice object for each dimension
-    slices = tuple(slice(start_idx, start_idx + small_dim) for start_idx, small_dim in zip(start_indices, tensor.shape))
+    slices = tuple(slice(start_idx, start_idx + small_dim) for start_idx, small_dim in zip(start_indices, tensor.shape, strict=True))
 
     # Place the small_tensor in the center of large_tensor
     large_tensor[slices] = tensor

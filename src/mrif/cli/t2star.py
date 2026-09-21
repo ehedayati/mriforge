@@ -270,7 +270,6 @@ def main():
         from mrif.quantitative_MRI.mapping import (
             t2_star_two_parametric_3D,
         )
-
         from mrif.utilities.io import (
             save_scalar_map_like,
         )

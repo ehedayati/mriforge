@@ -7,14 +7,12 @@ import nibabel as nib
 import numpy as np
 import pytest
 import SimpleITK as sitk
-
 from pydicom.dataset import FileDataset, FileMetaDataset
 from pydicom.uid import (
     ExplicitVRLittleEndian,
     MRImageStorage,
     generate_uid,
 )
-
 
 # -------------------------------------------------------------------------
 # NIfTI tests
@@ -1062,7 +1060,7 @@ def test_dicom_to_simpleitk_rejects_inconsistent_echo_time(
     ) in enumerate(
         zip(
             [0.0, 2.0, 4.0],
-            echo_times,
+            echo_times, strict=True
         ),
         start=1,
     ):

@@ -1,6 +1,5 @@
 from importlib import import_module
 
-
 __all__ = [
     "visualization",
     "side_by_side_view",

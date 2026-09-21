@@ -3,8 +3,10 @@
 # Description: This file is developed at CMRR
 
 import os
-import pandas as pd
 import re
+
+import pandas as pd
+
 
 def build_medical_data_frame(root_dir):
     def clean_contrast_name(dir_name):
@@ -86,7 +88,7 @@ def build_medical_data_frame(root_dir):
     # Normalize metadata tuples to four fields:
     # Type, Contrast, Info, Part.
     df["Type"], df["Contrast"], df["Info"], df["Part"] = zip(
-        *[(c + (None, None))[:4] for c in columns]
+        *[(c + (None, None))[:4] for c in columns], strict=True
     )
 
     return df

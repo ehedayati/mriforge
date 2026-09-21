@@ -107,3 +107,33 @@ dev = [
     "build",
     "twine",
 ]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src"]
+
+
+[tool.ruff.lint]
+select = [
+    "E4",  # pycodestyle: imports and whitespace
+    "E7",  # pycodestyle: statements
+    "E9",  # pycodestyle: runtime/syntax errors
+    "F",   # Pyflakes: undefined names, unused imports, etc.
+    "I",   # import sorting
+    "B",   # flake8-bugbear: likely bugs and problematic patterns
+]
+
+ignore = [
+    "E731",  # Allow assigned lambdas for concise local numerical helpers
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["mrif"]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

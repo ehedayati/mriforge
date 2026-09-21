@@ -1,15 +1,16 @@
 # File created by: Eisa Hedayati
 # Date: 1/3/2024
 # Description: This file is developed at CMRR
+from typing import List, Optional
+
 import matplotlib
 import matplotlib.pyplot as plt
-import numpy
 import numpy as np
-from ipywidgets import widgets, HBox, VBox, interactive
 from IPython.display import display
+from ipywidgets import HBox, VBox, interactive, widgets
 from matplotlib.colors import ListedColormap
+
 from mrif.utilities.numerical import resize_matrix
-from typing import List, Optional
 
 
 def get_vmin_vmax(images, vmin=None, vmax=None, ignore_nan=True):
@@ -80,7 +81,7 @@ def side_by_side_view(*images: np.ndarray,
 
     im = None  # keep handle for colorbar
 
-    for idx, (img, title) in enumerate(zip(images_list, titles)):
+    for idx, (img, title) in enumerate(zip(images_list, titles, strict=True)):
         if force_square:
             if img.shape[0] != img.shape[1]:
                 img = resize_matrix(img)

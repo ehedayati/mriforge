@@ -3,12 +3,14 @@
 # Description: This file is developed at CMRR
 
 import os
-import torch as pt
-import numpy as np
-import nibabel as nib
-import tempfile
 import shutil
+import tempfile
+
 import dicom2nifti
+import nibabel as nib
+import numpy as np
+import torch as pt
+
 from mrif.utilities.io import load_dicom_scan_from_dir
 
 
@@ -145,7 +147,7 @@ class AutoSegmentation:
         self.__private_segmented = np.zeros([segmented_large.shape[1], 2 * segmented_large.shape[2], 2 * segmented_large.shape[3],
                                              segmented_large.shape[4]])
 
-        for i in range(4):
+        for _ in range(4):
             self.__private_segmented[:, 0::2, 0::2] = segmented_large[0]  # Top-left
             self.__private_segmented[:, 0::2, 1::2] = segmented_large[1]  # Top-right
             self.__private_segmented[:, 1::2, 0::2] = segmented_large[2]  # Bottom-left

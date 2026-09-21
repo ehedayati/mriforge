@@ -1,7 +1,8 @@
-import numpy as np
-import torch
 import math
+
+import torch
 from tqdm import tqdm
+
 
 def _get_plt():
     """Import matplotlib only when plotting is actually requested."""
