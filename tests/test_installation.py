@@ -298,3 +298,83 @@ def test_dicom_namespace_is_lazy():
     )
 
     assert_success(result)
+
+def test_resize_matrix_public_alias():
+    result = run_isolated(
+        """
+        import mrif
+
+        assert callable(mrif.utils.resize_matrix)
+
+        assert (
+            mrif.utils.resize_matrix.__module__
+            == "mrif.utilities.numerical"
+        )
+        """
+    )
+
+    assert_success(result)
+
+
+def test_typing_interface_files_are_installed():
+    result = run_isolated(
+        """
+        from pathlib import Path
+
+        import mrif
+
+        package_root = Path(
+            mrif.__file__
+        ).resolve().parent
+
+        expected = [
+            package_root / "__init__.pyi",
+            package_root / "py.typed",
+            package_root / "dicom" / "__init__.pyi",
+            (
+                package_root
+                / "quantitative_MRI"
+                / "__init__.pyi"
+            ),
+            (
+                package_root
+                / "reconstruction"
+                / "__init__.pyi"
+            ),
+            (
+                package_root
+                / "reconstruction"
+                / "grappa"
+                / "__init__.pyi"
+            ),
+            (
+                package_root
+                / "reconstruction"
+                / "sense"
+                / "__init__.pyi"
+            ),
+            (
+                package_root
+                / "utilities"
+                / "__init__.pyi"
+            ),
+            (
+                package_root
+                / "visualization"
+                / "__init__.pyi"
+            ),
+        ]
+
+        missing = [
+            str(path)
+            for path in expected
+            if not path.is_file()
+        ]
+
+        assert not missing, (
+            f"Missing typing interface files: {missing}"
+        )
+        """
+    )
+
+    assert_success(result)

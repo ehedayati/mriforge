@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mriforge"
-version = "0.3.1"
+version = "0.3.2"
 authors = [{ name = "Eisa Hedayati" }]
 description = "MRI processing, reconstruction, quantitative MRI, and DICOM/NIfTI tools for Python"
 readme = "README.md"
@@ -103,6 +103,9 @@ dev = [
 [tool.setuptools.packages.find]
 where = ["src"]
 exclude = ["mrif.segmentation*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.pyi", "py.typed"]
 
 [tool.ruff]
 target-version = "py310"

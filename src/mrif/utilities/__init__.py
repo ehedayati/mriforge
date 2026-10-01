@@ -5,6 +5,7 @@ __all__ = [
     "io",
     "utils",
     "df_build",
+    "numerical",
 
     # io.py
     "nifti_read",
@@ -22,6 +23,8 @@ __all__ = [
     "apply_hamming_filter_4d_numpy",
     "resize_complex_matrix_fft",
     "zero_pad",
+
+    # numerical.py
     "resize_matrix",
 
     # df_build.py
@@ -33,12 +36,16 @@ _MODULES = {
     "io": ".io",
     "utils": ".utils",
     "df_build": ".df_build",
+    "numerical": ".numerical",
 }
 
 
 _OBJECTS = {
     # io.py
-    "nifti_read": (".io", "nifti_read"),
+    "nifti_read": (
+        ".io",
+        "nifti_read",
+    ),
     "load_dicom_scan_from_dir": (
         ".io",
         "load_dicom_scan_from_dir",
@@ -89,8 +96,10 @@ _OBJECTS = {
         ".utils",
         "zero_pad",
     ),
+
+    # numerical.py
     "resize_matrix": (
-        ".utils",
+        ".numerical",
         "resize_matrix",
     ),
 
@@ -104,14 +113,25 @@ _OBJECTS = {
 
 def __getattr__(name: str):
     if name in _MODULES:
-        module = import_module(_MODULES[name], __name__)
+        module = import_module(
+            _MODULES[name],
+            __name__,
+        )
         globals()[name] = module
         return module
 
     if name in _OBJECTS:
         module_name, object_name = _OBJECTS[name]
-        module = import_module(module_name, __name__)
-        obj = getattr(module, object_name)
+
+        module = import_module(
+            module_name,
+            __name__,
+        )
+
+        obj = getattr(
+            module,
+            object_name,
+        )
 
         globals()[name] = obj
         return obj
@@ -122,4 +142,7 @@ def __getattr__(name: str):
 
 
 def __dir__():
-    return sorted(set(globals()) | set(__all__))
+    return sorted(
+        set(globals())
+        | set(__all__)
+    )
