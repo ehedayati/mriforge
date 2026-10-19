@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mriforge"
-version = "0.3.2"
+version = "0.3.3"
 authors = [{ name = "Eisa Hedayati" }]
 description = "MRI processing, reconstruction, quantitative MRI, and DICOM/NIfTI tools for Python"
 readme = "README.md"
@@ -72,6 +72,7 @@ viz = [
     "matplotlib>=3.8",
     "ipywidgets>=8.1",
     "ipython>=8.20",
+    "ipympl>=0.9.5",
 ]
 
 # PyTorch-based reconstruction and quantitative MRI
@@ -90,6 +91,7 @@ all = [
     "SimpleITK>=2.3",
     "ipywidgets>=8.1",
     "ipython>=8.20",
+    "ipympl>=0.9.5",
 ]
 
 # Development / testing tools
