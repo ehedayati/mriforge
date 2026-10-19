@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -31,10 +31,10 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Image Processing",
     "Topic :: Scientific/Engineering :: Medical Science Apps.",
-    "License :: Other/Proprietary License",
 ]
 
-license = { file = "LICENSE" }
+license = "LicenseRef-MRIForge-NonCommercial"
+license-files = ["LICENSE"]
 
 # Lightweight dependencies needed by the core numerical functionality.
 dependencies = [
